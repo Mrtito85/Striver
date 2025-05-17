@@ -1,4 +1,6 @@
 #include <iostream>
+#include <map>
+
 using namespace std;
 
 //Here is the time complexity in worst case is BigO(N) and space complexity in stack
@@ -117,7 +119,7 @@ void explainHashing(){
     //just 1 lakh 
     //But in globly  we can store 10 power 7 elements
     //like 1 million elements
-    
+
     //Hashing
     int hash[13]={0};
     for(int i=0;i<n;i++){
@@ -134,8 +136,47 @@ void explainHashing(){
     }
    
 }
-int main(){
 
+void explainhashingString(){
+    string name;
+    cin>>name;
+    //pre compute
+    int hash[256]={0};
+    for(int i=0;i<name.size();i++){
+        hash[name[i]]++;
+    }
+    int t;
+    cin>>t;
+    while(t--){
+        char ch;
+        cin>>ch;
+        cout<<hash[ch];
+    }
+}
+
+void explainMap(){
+    int n;
+    cin>>n;
+    int *arr=new int[n];
+    for(int i=0;i<n;i++){
+        cin>>arr[i];
+    }
+    //pre compute
+    map<int,int> map;
+    for(int i=0;i<n;i++){
+        map[arr[i]]++;
+    }
+
+    int t;
+    cin>>t;
+    while(t--){
+        int n;
+        cin>>n;
+        cout<<" value "<<map[n]<<endl;
+    }
+}
+int main(){
+    explainMap();
 
     return 0;
 }
