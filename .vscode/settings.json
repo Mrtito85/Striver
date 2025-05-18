@@ -12,6 +12,10 @@
         "xstring": "cpp",
         "array": "cpp",
         "span": "cpp",
-        "xutility": "cpp"
+        "xutility": "cpp",
+        "ios": "cpp",
+        "xiosbase": "cpp",
+        "map": "cpp",
+        "utility": "cpp"
     }
 }
