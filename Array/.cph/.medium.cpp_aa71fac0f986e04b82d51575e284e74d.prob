@@ -1,0 +1,1 @@
+{"name":"Local: medium","url":"c:\\Users\\wwwza\\Desktop\\Striver\\Array\\medium.cpp","tests":[{"id":1747684890624,"input":"7 \n2 1 5 4 3 0 0","output":"2 3 0 0 1 4 5 "}],"interactive":false,"memoryLimit":1024,"timeLimit":3000,"srcPath":"c:\\Users\\wwwza\\Desktop\\Striver\\Array\\medium.cpp","group":"local","local":true}

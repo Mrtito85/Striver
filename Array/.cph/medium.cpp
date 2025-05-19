@@ -181,6 +181,113 @@ void kadaneAlgorithm(vector<int> &arr,int n){
     }
     cout<<maxi<<endl;
 }
+//Dynamic programming is remembering the past
+void sellStock(vector<int> &arr,int n){
+    int profit=0;
+    int mini=arr[0];
+    for(int i=1;i<n;i++){
+        //cout<<mini<<" "<<arr[i]<<endl;
+        int profitOfDay=arr[i]-mini;
+        int mini=min(arr[i],mini);
+        profit = max(profitOfDay,profit);
+    }
+    cout<<profit;
+}
+
+void rearrangeElementBySign(vector<int> &arr,int n){
+    vector<int> positiveArr;
+    vector<int> negativeArr;
+    for(int i=0;i<n;i++){
+        if(arr[i]>0){
+            positiveArr.push_back(arr[i]);
+        }
+        else {
+            negativeArr.push_back(arr[i]);
+        }
+    }
+
+    for(int i =0;i<n/2;i++){
+        arr[i*2] =positiveArr[i];
+        arr[i*2+1]= negativeArr[i];
+    }
+    for(auto i:arr){
+        cout<<i<<" ";
+    }
+}
+void rearrangeElementBySign1(vector<int> &arr,int n){
+    vector<int> temp(n);
+    int posIndex=0;
+    int negIndex=1;
+    for(int i=0;i<n;i++){
+        if(arr[i]>0){
+            temp[posIndex] =arr[i];
+            posIndex+=2;
+        }else{
+            temp[negIndex]=arr[i];
+            negIndex+=2;
+        }
+    }
+    for(auto i:temp){
+        cout<<i<<" ";
+    }
+}
+void rearrageElementBySign2(vector<int> &arr,int n){
+    //here i will rearrange element don't matter if postive are greater than neative
+    //or nagitive are greather than positive
+    vector<int> pos;
+    vector<int> neg;
+    for(int i=0;i<n;i++){
+        if(arr[i]>0){
+            pos.push_back(arr[i]);
+        }
+        else{
+            neg.push_back(arr[i]);
+        }
+    }
+
+    if(pos.size()> neg.size()){
+
+        for(int i=0;i<neg.size();i++){
+            arr[i*2+1]=neg[i];
+            arr[i*2]=pos[i];
+        }
+
+        int index= neg.size()*2;
+        for(int i=neg.size();i<pos.size();i++){
+            arr[index]=pos[i];
+            index++;
+        }
+    }else{
+
+        
+        for(int i=0;i<pos.size();i++){
+            arr[i*2+1]=neg[i];
+            arr[i*2]=pos[i];
+        }
+
+        int index= pos.size()*2;
+        for(int i=pos.size();i<neg.size();i++){
+            arr[index]=neg[i];
+            index++;
+        }
+
+    }
+    for(auto i: arr){
+        cout<<i<<" ";
+    }
+}
+
+
+void permutation(vector<int> &arr,int n){
+    do{
+      for(auto i:arr){
+        cout<<i<<" ";
+        }
+        cout<<endl;
+    }
+    while(next_permutation(arr.begin(),arr.end()));
+
+}
 int main(){
     int n;
     cin>>n;
@@ -188,6 +295,6 @@ int main(){
     for(int i=0;i<n;i++){
         cin>>arr[i];
     }
-    kadaneAlgorithm(arr,n);
+    permutation(arr,n);
     return 0;
 }
