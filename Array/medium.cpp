@@ -1,6 +1,7 @@
 #include <iostream>
 #include <vector>
 #include <algorithm>
+#include <climits>
 using namespace std;
 
 void printAllPermutation(vector<int> &arr,int n,vector<int> &temp,vector<vector<int>> &ans,vector<int> &visited){
@@ -58,6 +59,84 @@ void nextPermutation(vector<int> &arr,int n){
 
 }
 
+void findLeader(vector<int> &arr,int n){
+    vector<int> leader;
+    for(int i=0;i<n;i++){
+        bool leaderNum =true;
+        for(int j=i+1;j<n;j++){
+            if(arr[i]<arr[j]){
+                leaderNum=false;
+                break;
+            }
+        }
+        if(leaderNum){
+            leader.push_back(arr[i]);
+        }
+
+    }
+    for(auto i:leader){
+        cout<<i<<" ";
+    }
+}
+void findLeader1(vector<int> &arr,int n){
+    int maxi=INT_MIN;
+    vector<int> leader;
+    for(int i=n-1;i>=0;i--){
+        if(arr[i]>maxi){
+            leader.push_back(arr[i]);
+        }
+        maxi=max(arr[i],maxi);
+    }
+    reverse(leader.begin(),leader.end());
+    for(auto i:leader){
+        cout<<i<<" ";
+    }
+}
+
+bool linear_Search(vector<int> &arr,int element,int n){
+    for(int i=0;i<n;i++){
+        if(element==arr[i]){
+            return true;
+        }
+    }
+    return false;
+}
+
+void longestConsecutiveSubsequence(vector<int> &arr,int n){
+    int longest=-1;
+    for(int i=0;i<n;i++){
+        int count=0;
+        int x=arr[i];
+        while(linear_Search(arr,x,n)){
+            count+=1;
+            x=x+1;
+            longest=max(count,longest);
+
+        }
+    }
+    cout<<longest<<endl;
+
+}
+void longestConsecutiveSubsequence1(vector<int> &arr,int n){
+    sort(arr.begin(),arr.end()); //here we distoring the array the interview might not like it
+    int count=0;
+    int longest=-1;
+    int previousElement=INT_MIN;
+
+    for(int i=0;i<n;i++){
+        if(arr[i]-1 == previousElement){
+            count+=1;
+            previousElement==arr[i];
+        }
+        else if(arr[i]!= previousElement){
+            count=1;
+            previousElement=arr[i];
+        }
+        longest=max(longest,count);
+    }
+    cout<<longest<<endl;
+}
+
 int main(){
     int n;
     cin>>n;
@@ -68,14 +147,8 @@ int main(){
     vector<int> temp;
     vector<vector<int>> ans;
     vector<int> visited(n,0);
-    nextPermutation(arr,n);
+    longestConsecutiveSubsequence1(arr,n);
     
-    for(auto i:ans){
-        for(auto j:i){
-            cout<<j<<" ";   
-        }
-        cout<<endl;
-    }
 
     return 0;
 }
