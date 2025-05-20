@@ -2,6 +2,7 @@
 #include <vector>
 #include <algorithm>
 #include <climits>
+#include <unordered_set>
 using namespace std;
 
 void printAllPermutation(vector<int> &arr,int n,vector<int> &temp,vector<vector<int>> &ans,vector<int> &visited){
@@ -136,7 +137,26 @@ void longestConsecutiveSubsequence1(vector<int> &arr,int n){
     }
     cout<<longest<<endl;
 }
-
+void longeestConsecutiveSubsequence2(vector<int> &arr,int n){
+    unordered_set<int> st;
+    for(int i=0;i<n;i++){
+        st.insert(arr[i]);
+    }
+    int longest=-1;
+    int count=0;
+    for(auto it:st){
+        if(st.find(it-1)==st.end()){
+             count=0;
+            int x= it;
+            while(st.find(x)!=st.end()){
+                x=x+1;
+                count++;
+            }
+            longest=max(count,longest);
+        }
+    }
+    cout<<longest<<endl;
+}
 int main(){
     int n;
     cin>>n;
@@ -147,7 +167,7 @@ int main(){
     vector<int> temp;
     vector<vector<int>> ans;
     vector<int> visited(n,0);
-    longestConsecutiveSubsequence1(arr,n);
+    longeestConsecutiveSubsequence2(arr,n);
     
 
     return 0;
