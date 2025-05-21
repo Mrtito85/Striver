@@ -465,18 +465,156 @@ void mergeTwoArraySortedArray(vector<int> &arr1,vector<int> &arr2,int n1,int n2)
         cout<<i<<" ";
     }
 }
+
+void mergeTwoSortedArray(vector<int> &arr1,vector<int> &arr2,int n1,int n2){
+    int left=n1-1;
+    int right=0;
+    while(left>=0 && right<n2){
+        if(arr1[left]>arr2[right]){
+            swap(arr1[left],arr2[right]);
+            left--;
+            right++;
+        }else{
+            //do not need to do anying
+            break;
+        }
+    }
+    //then sort the array
+    sort(arr1.begin(),arr1.end());
+    sort(arr2.begin(),arr2.end());
+    for(auto i:arr1){
+        cout<<i<<" ";
+    }
+    cout<<endl;
+    for(auto i:arr2){
+        cout<<i<<" ";
+    }
+
+}
+
+void countMissingAndRepeatingNumber(vector<int> &arr,int n){
+    int repeating=-1;
+    int missing =-1;
+    for(int i=1;i<=n;i++){
+        int count=0;
+        for(int j=0;j<n;j++){
+            if(i == arr[j]){
+                count++;
+            }
+        }
+        if(count==2){
+            repeating=i;
+        }
+        if(count==0){
+            missing=i;
+        }
+        if(repeating != -1 && missing != -1)break;
+    }
+    cout<<"Missing Number is "<<missing<<endl;
+    cout<<"Repeating Number is "<<repeating<<endl;
+}
+void countMissingAndRepeatingNumberHashing(vector<int> &arr,int n){
+    vector<int> hash(n+1,0);
+    for(int i=0;i<n;i++){
+        hash[arr[i]]++;
+    }
+    int repeating=-1;
+    int missing=-1;
+    for(int i=1;i<hash.size();i++){
+        if(hash[i]==0){
+            missing=i;
+        }
+        if(hash[i]==2){
+            repeating=i;
+        }
+        if(missing != -1 && repeating != -1){
+            break;
+        }
+    }
+    cout<<missing<<" "<<repeating<<endl;
+}
+
+ void inversonCount(vector<int> &arr,int n){
+   //Here i < j condition 
+    int count=0;
+    for(int i= 0;i<n;i++){
+        for(int j=i+1;j<n;j++){
+            if(arr[i]>arr[j]){
+                count++;
+            }
+        }
+    }
+    cout<<"Inversion Count is "<<count<<endl;   
+ }
+int COUNT=0;
+ void merge(int arr[],int l,int mid,int h){
+    vector<int> temp;
+
+    int left=l;
+    int right=mid+1;
+
+    while(left<=mid && right<=h){
+        if(arr[left]<=arr[right]){
+            temp.push_back(arr[left]);
+            left++;
+        }
+        else{
+            //Here we are in the right part
+            COUNT+=mid-left+1;
+            temp.push_back(arr[right]);
+            right++;
+        }
+    }
+    while(left<=mid){
+        temp.push_back(arr[left]);
+        left++; 
+    }
+    while(right<=h){
+        temp.push_back(arr[right]);
+        right++;
+    }
+
+    for(int i=l;i<=h;i++){
+        arr[i]=temp[i-l];
+    }
+
+}
+
+void mergeSort(int arr[],int l,int h){
+    if(l>=h)return;
+    int mid=(l+h)/2;
+    mergeSort(arr,l,mid);
+    mergeSort(arr,mid+1,h);
+    merge(arr,l,mid,h);
+}
+
+void InversonCount1(int arr[],int n){
+    int l=0;
+    int h=n-1;
+    mergeSort(arr,l,h);
+    cout<<"Inversion Count is "<<COUNT<<endl;
+}
+
+
+void reversePair(vector<int> &arr,int n){
+    int count=0;
+    for(int i =0;i<n;i++){
+        for(int j=i+1;j<n;j++){
+            if(arr[i]> 2*arr[j]){
+                count++;
+            }
+        }
+    }
+    cout<<"reverse count "<<count<<endl;
+} 
 int main(){
-    int n1,n2;
-    cin>>n1>>n2;
+    int n1;
+    cin>>n1;
     vector<int> arr1(n1);
-    vector<int> arr2(n2);
     for(int i=0;i<n1;i++){
         cin>>arr1[i];
     }
-    for(int i=0;i<n2;i++){
-        cin>>arr2[i];
-    }
-    mergeTwoArraySortedArray(arr1,arr2,n1,n2);
+    reversePair(arr1,n1);
 
     return 0;
 }
