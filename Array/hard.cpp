@@ -592,10 +592,19 @@ void InversonCount1(int arr[],int n){
     int l=0;
     int h=n-1;
     mergeSort(arr,l,h);
-    cout<<"Inversion Count is "<<COUNT<<endl;
+  //  cout<<"Inversion Count is "<<COUNT<<endl;
 }
 
 
+void countPair(vector<int> &arr,int low,int mid,int high){
+    int right=mid+1;
+    for(int i=low;i<=mid;i++){
+        while(right<=high && arr[i] > (long long)2*arr[right]){
+            right++;
+        }
+        COUNT+=(right -(mid+1));
+    }
+}
 void reversePair(vector<int> &arr,int n){
     int count=0;
     for(int i =0;i<n;i++){
@@ -607,6 +616,39 @@ void reversePair(vector<int> &arr,int n){
     }
     cout<<"reverse count "<<count<<endl;
 } 
+
+void maximumProductSubarray(vector<int> &arr,int n){
+    int maxProduct=INT_MIN;
+
+    for(int i=0;i<n;i++){
+        for(int j=i;j<n;j++){
+            int product=1;
+            for(int k=i;k<=j;k++){
+                product *= arr[k];
+                maxProduct = max(maxProduct,product);
+            }
+        }
+    }
+    cout<<maxProduct;
+}
+
+void maximumProductSubarray1(vector<int> &arr,int n){
+    int prefix=1;
+    int suffix=1;
+    int maxProduct=INT_MIN;
+
+    for(int i=0;i<n;i++){
+        if(prefix==0)prefix=1;
+        if(suffix==0)suffix=1;
+
+        prefix *=arr[i];
+        suffix *=arr[n-i-1];
+
+        maxProduct = max(maxProduct,max(prefix,suffix));
+    }
+    cout<<maxProduct<<endl;
+}
+
 int main(){
     int n1;
     cin>>n1;
@@ -614,7 +656,8 @@ int main(){
     for(int i=0;i<n1;i++){
         cin>>arr1[i];
     }
-    reversePair(arr1,n1);
+    maximumProductSubarray1(arr1,n1);
+    
 
     return 0;
 }
