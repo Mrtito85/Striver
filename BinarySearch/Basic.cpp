@@ -189,15 +189,161 @@ int searchInRotatedSortedArray(vector<int> &arr,int n,int x){
     return ans;
 }
 
+int findKRotationArray(vector<int> &arr,int n,int x){
+    int low=0;
+    int high = n-1;
+    int mid=(low + high)/2;
+    int ans=INT_MAX;
+    int index=-1;
+    while(low<= high){
+        mid=(low+high)/2;
+        //In case the array is sorteds
+        if(arr[low]<=arr[high]){
+            if(ans>arr[low]){
+                ans = arr[low];
+                index=low;
+                break;
+            }
+        }
+        if(arr[low]<=arr[high]){
+            if(ans>arr[low]){
+                ans=arr[low];
+                index=low;
+            }
+            low=mid+1;
+        }
+        else{
+            if(ans>arr[mid]){
+                ans=arr[mid];
+                index=mid;
+            }
+            high=mid-1;
+        }
+    }
+    return index;
+}
+
+int findElementAppearOnceInArray(vector<int> &arr,int n){
+    //Base case if one element in the array
+    if(n==1)return arr[0];
+    for(int i=0;i<n;i++){
+        if(i==0){
+            if(arr[i]!= arr[i+1])return arr[i];
+        }
+        else if(i==n-1){
+            if(arr[i]!= arr[i-1])return arr[i];
+        }
+        else{
+            if(arr[i]!= arr[i+1] && arr[i]!= arr[i-1])return arr[i];
+        }
+    }
+    return -1;
+}
+int findElementAppearOnceInArrays(vector<int> &arr,int n){
+    if(n==1)return arr[0];
+    if(arr[0]!=arr[1])return arr[0];
+    if(arr[n-1]!= arr[n-2])return arr[n-1];
+    int low=1;
+    int high=n-2;
+
+    while(low<=high){
+        int mid=(low+high)/2;
+        if(arr[mid]!= arr[mid-1] && arr[mid]!= arr[mid+1]){
+            return arr[mid];
+        }
+        else if(mid % 2== 0 && arr[mid]== arr[mid+1] || mid%2 ==1 && arr[mid]==arr[mid-1]){
+            low=mid+1;
+        }
+        else{
+            high=mid-1;
+        }
+
+    }
+    return -1;
+}
+
+int findPeak(vector<int> &arr,int n){
+    for(int i=0;i<n;i++){
+        if((i==0 || arr[i-1]<arr[i] )&& (i==n-1 || arr[i+1]<arr[i])){
+            return arr[i];
+        }
+    }
+    return -1;
+}
+
+int findSqrtNumber(int n){
+        int ans=1;
+        for(int i=1;i<=n;i++){
+            if(i*i<=n){
+                ans=i;
+            }else{
+                break;
+            }
+        }
+        return ans;
+
+}
+
+int findSqrtNumberBinarySearch(int n){
+    int low =0;
+    int high=n;
+    int ans=1;
+    while(low<=high){
+        int mid=(low+high)/2;
+        if((mid*mid)<=n){
+            ans=mid;
+            low=mid+1;
+        }
+        else{
+            high=mid-1;
+        }
+    }
+    return ans;
+}
+
+int find(int num,int n){
+    int ans=1;
+    for(int i=1;i<=n;i++){
+        ans=ans*num;
+    }
+    //cout<<ans<<endl;
+    return ans;
+}
+int findNthRoot(int n,int m){
+    for(int i=1;i<=m;i++){
+        if(find(i,n)==m){
+            return i;
+        }
+        else if(find(i,n)> m){
+            break;
+        }
+    }
+    return -1;
+}
+int findNthRootBinarySearch(int n,int m){
+    int low=1;
+    int high=m;
+    while(low<=high){
+        int mid=(low+high)/2;
+
+        if(find(mid,n)==m){
+            return mid;
+        }
+        else if(find(mid,n)>m){
+            high=mid-1;
+        }
+        else{
+            low=mid+1;
+        }
+
+    }
+    return -1;
+}
 
 int main(){
-    int n,target;
-    cin>>n>>target;
-    vector<int> arr(n);
-    for(int i=0;i<n;i++){
-        cin>>arr[i];
-    }
-    cout<<searchInRotatedSortedArray(arr,n,target);
+    int n,m;
+    cin>>n>>m;
+    cout<<findNthRootBinarySearch(n,m);
 
     return 0;
 }
