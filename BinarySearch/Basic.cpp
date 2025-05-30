@@ -1,6 +1,8 @@
 #include<iostream>
 #include <climits>
+#include <cmath>
 #include <vector>
+#include <algorithm>
 using namespace std;
 void binarySearch(vector<int> &arr,int low,int high,int target){
     int mid=(low+high)/2;
@@ -340,10 +342,135 @@ int findNthRootBinarySearch(int n,int m){
     return -1;
 }
 
-int main(){
-    int n,m;
-    cin>>n>>m;
-    cout<<findNthRootBinarySearch(n,m);
-
-    return 0;
+int EatPerHour(vector<int> &arr,int hourly){
+    int totalBananaEat=0;
+    int n=arr.size();
+    for(int i=0;i<n;i++){
+        totalBananaEat+=ceil((double)arr[i]/hourly);
+    }
+    return totalBananaEat;
 }
+int cocoEatBanana(vector<int> &arr,int h){
+    auto it =max_element(arr.begin(),arr.end());
+    int n=*it;
+    for(int i=1;i<=n;i++){
+        //cout<<i<<endl;
+        int eatBanana=EatPerHour(arr,i);
+        //cout<<eatBanana<<endl;
+        if(eatBanana<=h){
+           // cout<<"Done";
+            return i;
+        }
+    }
+    return -1;
+}
+int cocoEatBanana1(vector<int> &arr,int h){
+    int low=0;
+    int high= *max_element(arr.begin(),arr.end());
+    int ans=INT_MAX;
+    while(low<=high){
+        int mid=(low+high)/2;
+        int eatBanana=EatPerHour(arr,mid);
+        if(eatBanana<=h){
+            ans=mid;
+            high=mid-1;
+        }
+        else{
+            low=mid+1;
+        }
+    }
+    return ans;
+}
+
+bool isPossible(vector<int> &arr,int day,int m,int k){
+    int count=0;
+    int numberOfBoks=0;
+    for(int i=0;i<arr.size();i++){
+        if(arr[i]<=day){
+            count++;
+        }
+        else{
+            numberOfBoks +=(count/k);
+            count=0;
+        }
+    }
+    numberOfBoks +=(count/k);
+    //cout<<numberOfBoks<<endl;
+    if(numberOfBoks>=m)return true;
+    else{
+        return false;
+    }
+}
+int bloomFlowers(vector<int> &arr,int m,int k){
+    //m is number of bokies
+    //k is a consecquative flowers
+    
+    int mini= *min_element(arr.begin(),arr.end());
+    int maxi= *max_element(arr.begin(),arr.end());
+
+    for(int i=mini;i<=maxi;i++){
+        if(isPossible(arr,i,m,k)){
+            return i;
+        }
+    }
+    return -1;
+}
+
+bool isPossible1(vector<int> &arr,int distance,int cows){
+    int last=arr[0];
+    int placeCow=1;
+    for(int i=1;i<arr.size();i++){
+        if(arr[i]-last>=distance){
+            placeCow++;
+            last=arr[i];
+        }
+    }
+    //cout<<distance<<" : "<<placeCow<<endl;
+   // cout<<placeCow<<endl;
+    if(placeCow>=cows){
+        return true;
+    }else{
+        return false;
+    }
+}
+int aggressiveCow(vector<int> &arr,int cows){
+    int maxi= *max_element(arr.begin(),arr.end());
+    int mini= *min_element(arr.begin(),arr.end());
+    for(int i=1;i<=(maxi-mini);i++){
+        //cout<<i<<endl;
+        if(isPossible1(arr,i,cows)){
+            continue;
+            
+        }
+        else{
+            return i-1;
+        }
+    }
+}
+
+int aggessiveCowBinarySearch(vector<int> &arr,int cows){
+    int low=1;
+    int maxi= *max_element(arr.begin(),arr.end());
+    int mini= *min_element(arr.begin(),arr.end());
+    int high=maxi-mini;
+    while(low<=high){ 
+        int mid=(low+high)/2;
+        if(isPossible1(arr,mid,cows)){
+            low=mid+1;
+        }
+        else{
+            high=mid-1;
+        }
+    }
+    return high;
+}
+int main(){
+    int n,cows;
+    cin>>n>>cows;
+    vector<int> arr(n);
+    for(int i=0;i<n;i++){
+        cin>>arr[i];
+    }
+    cout<<aggessiveCowBinarySearch(arr,cows);
+    return 0;
+} 
