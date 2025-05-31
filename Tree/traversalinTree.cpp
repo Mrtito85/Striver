@@ -121,6 +121,45 @@ void levelOrder(node* root){
     }
 }
 
+void inOrderTraversalIterative(node* root){
+    if(root==NULL)return;
+    stack<node*> s;
+    node* curr=root;
+    while(true){
+        if(curr){
+            s.push(curr);
+            curr=curr->left;
+        }else{
+            if(s.empty())break;
+            curr=s.top();
+            cout<<curr->data<<" ";
+            s.pop();
+            curr=curr->right;
+        }
+    }
+}
+
+int maxDepthOfBinaryTree(node* root){
+    if(root==NULL)return 0;
+
+    int leftHeight=maxDepthOfBinaryTree(root->left);
+    int rightHeight= maxDepthOfBinaryTree(root->right);
+
+    return 1+ max(leftHeight,rightHeight);
+}
+
+bool balenceBinaryTree(node* root){
+    if(root==NULL)return true;
+    int leftHeight= maxDepthOfBinaryTree(root->left);
+    int rightHeight=maxDepthOfBinaryTree(root->right);
+    if(abs(rightHeight-leftHeight)>1){
+        return false;
+    }
+    bool lf=balenceBinaryTree(root->left);
+    bool r=balenceBinaryTree(root->right);
+    if(!lf || !r)return false;
+    return true;
+}
 int main(){
 // Creating the tree:
     //        10
@@ -138,7 +177,10 @@ int main(){
     //postOrder(root);
     //bfs(root);
     //dfs(root);
-    levelOrder(root);
+    //levelOrder(root);
+    //inOrderTraversalIterative(root);
+    //cout<<maxDepthOfBinaryTree(root);//3
+    //cout<<balenceBinaryTree(root);//1
 
 
 
