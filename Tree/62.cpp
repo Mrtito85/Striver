@@ -9,6 +9,7 @@
 
 #include <iostream>
 #include <queue>
+#include <vector>
 #include <stack>
 using namespace std;
 
@@ -266,19 +267,63 @@ pair<bool,int> treeSum(node* &root){
     return ans;
 }
 
+void zigzagTraversal1(node* &root){
+    
+   // cout<<"HI"<<endl;
+    vector<int> result;
+    queue<node*> q;
+    q.push(root);
+    //cout<<"HI"<<endl;
+    bool leftToRight=true;
+    while(!q.empty()){
+        int n=q.size();
+        vector<int> ans(n);
+        for(int i=0;i<n;i++){
+        
+
+            node* curr=q.front();
+            q.pop();
+
+            //push element left to right base on boolean
+
+            int index=leftToRight?i:n-i-1;
+            ans[index]=curr->data;
+            cout<<curr->data<<endl;
+            
+            if(curr->left){
+                q.push(curr->left);
+            }
+            if(curr->right){
+                q.push(curr->right);
+            }
+        }
+        leftToRight = !leftToRight;
+        for(auto i:ans){
+            result.push_back(i);
+           // cout<<i<<" ";
+        }
+    }
+    for(auto i:result){
+        cout<<i<<" ";
+    }
+    cout<<endl;
+}
 
 int main(){
     node* root=NULL;
     root= buildTreeFromLevelOrder(root);
     levelOrder(root);
-    int count=0;
-    countLeafNodes(root,count);
-    cout<<"Total Number of Leaf Nodes is "<<count<<endl;
-    cout<<"Maximum height is "<<maxHeightOfBinaryTree(root);
-    cout<<"Maximum diameter is "<<diameterOfTree(root)<<endl;
-    cout<<"Diameter Fast "<<diameterFast(root).first<<endl;
-    cout<<"IS balence tree "<<isBalence (root)<<endl;
-    cout<<"Is balence fast "<<isBalenceFast(root).first<<endl;
-    cout<<"is Sum tree  "<<treeSum(root).first;
+    zigzagTraversal1(root);
+  //  int count=0;
+   // countLeafNodes(root,count);
+   // cout<<"Total Number of Leaf Nodes is "<<count<<endl;
+   // cout<<"Maximum height is "<<maxHeightOfBinaryTree(root);
+   // cout<<"Maximum diameter is "<<diameterOfTree(root)<<endl;
+   // cout<<"Diameter Fast "<<diameterFast(root).first<<endl;
+    //cout<<"IS balence tree "<<isBalence (root)<<endl;
+    //cout<<"Is balence fast "<<isBalenceFast(root).first<<endl;
+   // cout<<"is Sum tree  "<<treeSum(root).first<<endl;
+    //cout<<"zig zag Tree "<<endl;
+    
     return 0;
 }
