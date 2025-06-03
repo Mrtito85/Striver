@@ -233,6 +233,40 @@ pair<bool,int> isBalenceFast(node* &root){
     return ans;
 }
  
+//here first pair point the issum is equal and second point sum
+pair<bool,int> treeSum(node* &root){
+    if(root==NULL){
+        pair<bool,int> p=make_pair(true,0);
+        return p;
+    }
+    //if the leave node
+    if(root->left==NULL && root->right==NULL){
+        pair<bool,int> p=make_pair(true,root->data);
+        return p;
+    }
+
+    //Here call for left
+    pair<bool,int> leftAns=treeSum(root->left);
+    pair<bool,int> rightAns=treeSum(root->right);
+
+    //check left and right condition for sumtree
+    bool left= leftAns.first;
+    bool right=rightAns.first;
+
+    bool condition= root->data== leftAns.second + rightAns.second;
+    pair<bool,int> ans;
+    if(left && right && condition){
+        ans.first= true;
+        ans.second=2* root->data;
+    }
+    else{
+        ans.first=false;
+        ans.second=root->data + leftAns.second + rightAns.second;
+    }
+    return ans;
+}
+
+
 int main(){
     node* root=NULL;
     root= buildTreeFromLevelOrder(root);
@@ -244,6 +278,7 @@ int main(){
     cout<<"Maximum diameter is "<<diameterOfTree(root)<<endl;
     cout<<"Diameter Fast "<<diameterFast(root).first<<endl;
     cout<<"IS balence tree "<<isBalence (root)<<endl;
-    cout<<"Is balence fast "<<isBalenceFast(root).first;
+    cout<<"Is balence fast "<<isBalenceFast(root).first<<endl;
+    cout<<"is Sum tree  "<<treeSum(root).first;
     return 0;
 }
