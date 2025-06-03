@@ -160,15 +160,90 @@ int maxHeightOfBinaryTree(node* &root){
 
 int diameterOfTree(node* &root){
     //longet path between any two nodes
-    
+    if(root==NULL)return 0;
+    int operation1=diameterOfTree(root->left);
+    int operation2=diameterOfTree(root->right);
+    int operation3=(maxHeightOfBinaryTree(root->left)+ 
+    maxHeightOfBinaryTree(root->right))+1;
+    return max(operation1,max(operation2,operation3));
 }
+
+//DiameterFast
+//return pair first node point at the diameter and second point toward the height
+pair<int,int> diameterFast(node* &root){
+    if(root==NULL){
+        pair<int,int> p=make_pair(0,0);
+        return p;
+    }
+    //here calculate the diameter
+    pair<int,int> left=diameterFast(root->left);
+    pair<int,int> right=diameterFast(root->right);
+
+    int diameterleft=left.first;
+    int diameterRight=right.first;
+
+    int heightleft =left.second;
+    int heightRight=right.second;
+    int op1=diameterleft;
+    int op2=diameterRight;
+    int op3=heightleft+heightRight+1;
+    pair<int,int> ans;
+    ans.first=max(op1,max(op2,op3));
+    ans.second=1+max(heightleft,heightRight);
+    return ans; 
+}
+
+bool isBalence(node* &root){
+    if(root==NULL)return true;
+
+    //checking for balence of left
+    bool left= isBalence(root->left);
+    bool right= isBalence(root->right);
+    bool diff= abs(maxHeightOfBinaryTree(root->left) - maxHeightOfBinaryTree(root->right))<=1;
+    if(left && right && diff ){
+        return true;
+    }else{
+        return false;
+    }
+}
+
+//is balence fast here we return pair<balence , height> 
+pair<bool,int> isBalenceFast(node* &root){
+    if(root==NULL){
+        pair<bool,int> p=make_pair(true,0);
+        return p;
+    }
+    //left call
+    pair<bool,int> left=isBalenceFast(root->left);
+    pair<bool,int> right=isBalenceFast(root->right);
+    
+    //left check
+    bool isLeft=left.first;
+    bool isRight=right.first;
+
+    //checking for diff
+    //height
+    int heightLeft=left.second;
+    int heightRight=right.second;
+
+    pair<bool,int> ans;
+    bool diff=abs(heightLeft - heightRight )<=1;
+    ans.first=(isLeft && isRight && diff );
+    ans.second=1+max(heightLeft,heightRight);
+    return ans;
+}
+ 
 int main(){
     node* root=NULL;
     root= buildTreeFromLevelOrder(root);
-    levelOrderReverse(root);
+    levelOrder(root);
     int count=0;
     countLeafNodes(root,count);
     cout<<"Total Number of Leaf Nodes is "<<count<<endl;
     cout<<"Maximum height is "<<maxHeightOfBinaryTree(root);
+    cout<<"Maximum diameter is "<<diameterOfTree(root)<<endl;
+    cout<<"Diameter Fast "<<diameterFast(root).first<<endl;
+    cout<<"IS balence tree "<<isBalence (root)<<endl;
+    cout<<"Is balence fast "<<isBalenceFast(root).first;
     return 0;
 }
