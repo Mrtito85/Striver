@@ -268,12 +268,9 @@ pair<bool,int> treeSum(node* &root){
 }
 
 void zigzagTraversal1(node* &root){
-    
-   // cout<<"HI"<<endl;
-    vector<int> result;
+        vector<int> result;
     queue<node*> q;
     q.push(root);
-    //cout<<"HI"<<endl;
     bool leftToRight=true;
     while(!q.empty()){
         int n=q.size();
@@ -300,7 +297,6 @@ void zigzagTraversal1(node* &root){
         leftToRight = !leftToRight;
         for(auto i:ans){
             result.push_back(i);
-           // cout<<i<<" ";
         }
     }
     for(auto i:result){
@@ -309,11 +305,79 @@ void zigzagTraversal1(node* &root){
     cout<<endl;
 }
 
+void leftTraverse(node* &root,vector<int> &ans){
+    if(root==NULL){
+        return;
+    }
+    //check if leaf node then skip it for leaf traversal
+    if(root->left==NULL && root->right==NULL){
+        return;
+    }
+    ans.push_back(root->data);
+    if(root->left){
+        leftTraverse(root->left,ans);
+    }
+    else{
+        leftTraverse(root->right,ans);
+    }
+}
+void rightTraverse(node* &root,vector<int> &ans){
+    if(root==NULL){
+        return;
+    }
+    //check if leaf node then skip it for leaf traversal
+    if(root->left==NULL && root->right==NULL){
+        return;
+    }
+    
+    if(root->right){
+        rightTraverse(root->right,ans);
+    }
+    else{
+        rightTraverse(root->left,ans);
+    }
+    //we are writig tail case becasue we want get them reverse
+    ans.push_back(root->data);
+}
+
+void leafNode(node* &root,vector<int> &ans){
+    if(root==NULL)return;
+    //preorder
+   if(root->left==NULL && root->right ==NULL){
+    ans.push_back(root->data);
+    return;
+   }
+    leafNode(root->left,ans);
+    leafNode(root->right,ans);
+}
+
+
+void boundryTraversal(node* &root){
+    if(root==NULL){
+        return;
+    }
+    vector<int> ans;
+    ans.push_back(root->data);
+    //traverse left 
+    leftTraverse(root->left,ans);
+    //traverse leaf Node
+    leafNode(root->left,ans);
+    leafNode(root->right,ans);
+    //traverse Right
+    rightTraverse(root->right,ans);
+    for(auto i:ans){
+        cout<<i<<" ";
+    }
+    cout<<endl;
+
+}
+
 int main(){
     node* root=NULL;
     root= buildTreeFromLevelOrder(root);
     levelOrder(root);
-    zigzagTraversal1(root);
+    //zigzagTraversal1(root);
+    boundryTraversal(root);
   //  int count=0;
    // countLeafNodes(root,count);
    // cout<<"Total Number of Leaf Nodes is "<<count<<endl;
