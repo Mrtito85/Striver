@@ -350,6 +350,48 @@ vector<int> topologicalSort(int v,vector<vector<int>> &edges){
     }
     return ans;
 }
+
+//kahn's algorithm using bfs topological sort
+
+vector<int>  kahnAlgorithm(int v,int e,vector<vector<int>> &edges){
+    //make a adj list
+    unordered_map<int,vector<int>> adj;
+    for(int i=0;i<edges.size();i++){
+        int u=edges[i][0];
+        int v=edges[i][1];
+
+        adj[u].push_back(v);
+    }
+
+    //calculte the indegreee for kahn's algorithm
+    vector<int> indegree(v);
+    for(auto i:adj){
+        for(auto j:i.second){
+            indegree[j]++;
+        }
+    }
+    //if the indegree is zero then push it to the queue
+    queue<int> q;
+    for(int i=0;i<indegree.size();i++){
+        if(indegree[i]==0){
+            q.push(i);
+        }
+    }
+    vector<int> ans;
+
+    while(!q.empty()){
+        int frontNode=q.front();
+        q.pop();
+        ans.push_back(frontNode);
+        for(auto i:adj[frontNode]){
+            indegree[i]--;
+            if(indegree[i]==0){
+                q.push(i);
+            }
+        }
+    }
+    return ans;
+}
 int main(){
 
 
@@ -361,7 +403,7 @@ int main(){
         cin>>edges[i][0]>>edges[i][1];
     }
 
-    vector<int> ans=topologicalSort(v,edges);
+    vector<int> ans=kahnAlgorithm(v,e,edges);
     for(auto i:ans){
         cout<<i<<" ";
     }
