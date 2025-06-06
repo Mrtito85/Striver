@@ -3,6 +3,7 @@
 #include <list>
 #include <vector>
 #include <queue>
+#include <stack>
 using namespace std;
 template <typename T>
 //graph has Nodes 
@@ -244,6 +245,7 @@ bool isCyclicDfs(unordered_map<int,vector<int>> &adj,int parent,unordered_map<in
         }
     }
 }
+
 void cycleDetectionDfs(int V,int E,vector<vector<int>> edges){
     //prepare a adj list
     unordered_map<int,vector<int>> adj;
@@ -268,22 +270,102 @@ void cycleDetectionDfs(int V,int E,vector<vector<int>> edges){
         }
     }
     cout<<"Cycle  is not Present dfs "<<endl;
-}int main(){
+}
+//cycle detection in directed graph
+bool dfsVis(unordered_map<int,vector<int>> adj,unordered_map<int,bool> visited,unordered_map<int,bool> dfsVisited,int node){
+    visited[node]=true;
+    dfsVisited[node]=true;
+    for(auto i:adj[node]){
+        if(!visited[i]){
+            bool ans=dfsVis(adj,visited,dfsVisited,i);
+            if(ans)return true;
+        }else if(dfsVisited[i]==true){
+            return true;
+        }
+    }
+    dfsVisited[node]=false;
+    return false;
+}
+void cycleDetectionDirectedGraph(int n,vector<vector<int>> edges){
+    //make adjacency list
+    unordered_map<int,vector<int>> adj;
+    for(int i=0;i<edges.size();i++){
+        int u=edges[i][0];
+        int v=edges[i][1];
+
+        adj[u].push_back(v);
+    }
+
+    //make visited and dfsvisited
+    unordered_map<int,bool> visited;
+    unordered_map<int,bool> dfsVisited;
+
+    for(int i=0;i<n;i++){
+        if(!visited[i]){
+            bool ans=dfsVis(adj,visited,dfsVisited,i);
+            if(ans){
+                cout<<"Present";
+            }
+        }
+    }
+    cout<<"Not preesnt";
+}
+
+//Topological sort --->  only apply in DAG
+//it is linear ordering of vertices such that for every edge such that U always appear before V in ordering
+void dfsCall(unordered_map<int,vector<int>> &adj,unordered_map<int,bool> &visited,stack<int> &s,int node){
+    visited[node]=true;
+
+    for(auto i:adj[node]){
+        if(!visited[i]){
+            dfsCall(adj,visited,s,i);
+        }
+    }
+    s.push(node);
+}
+vector<int> topologicalSort(int v,vector<vector<int>> &edges){
+    //making an adjacency list
+    unordered_map<int,vector<int>> adj;
+    for(int i=0;i<edges.size();i++){
+        int u=edges[i][0];
+        int v=edges[i][1];
+        //topological sort apply only DAG
+        adj[u].push_back(v);
+    }
+
+    //making a visited and making stack to to check every u node appear before v
+    stack<int> s;
+    unordered_map<int,bool> visited;
+    //traverse the disconnected components
+    for(int i=0;i<v;i++){
+        if(!visited[i]){
+            dfsCall(adj,visited,s,i);
+        }
+    }
+    vector<int> ans;
+    while(!s.empty()){
+        int element =s.top();
+        ans.push_back(element);
+        s.pop();
+    }
+    return ans;
+}
+int main(){
 
 
-    int V, E;
-    cout << "Enter number of vertices: ";
-    cin >> V;
-    cout << "Enter number of edges: ";
-    cin >> E;
-
-    vector<vector<int>> edges(E,vector<int>(2));
+    int v,e;
+    cin>>v>>e;
+    vector<vector<int>> edges(e,vector<int>(2));
     cout << "Enter edges (u v):\n";
-    for (int i = 0; i < E; i++) {
+    for (int i = 0; i <e; i++) {
         cin>>edges[i][0]>>edges[i][1];
     }
 
-    cycleDetectionDfs(V,E, edges);
+    vector<int> ans=topologicalSort(v,edges);
+    for(auto i:ans){
+        cout<<i<<" ";
+    }
+    cout<<endl;
 
 
     return 0;
