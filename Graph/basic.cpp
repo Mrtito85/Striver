@@ -451,10 +451,8 @@ class Graph{
         }
     }
 };
-int main(){
-
-
-    Graph g;
+void input1forShortestPath(){
+        Graph g;
     g.addEdge(0,1,5);
     g.addEdge(0,2,3);
     g.addEdge(1,2,2);
@@ -491,6 +489,31 @@ int main(){
         cout<<i<<" ";
     }
 //2147483647 0 2 6 5 3 answer is correct
+}
+
+//Dijkstra's algorithm
+//shortest path to src node to all destination node
+//The graph has not any negative edge contain
+// vertices = 4
+// edges = 5
+//0->[1,5],[2,8]
+//1->[0,5],[2,9],[1,3]
+//2->[0,8],[1,9],[3,6]
+//3->[1,2][2,6]
+//distance 
+//0-->0 =0
+//0-->1 =5
+//0-->2 =8
+//0-->3 =7
+
+//Input: src = 0, V = 5, edges[][] = [[0, 1, 4], [0, 2, 8], [1, 4, 6], [2, 3, 2], [3, 4, 10]] -> first node src,second destnation,third is weight
+
+//they will give you vertices ,edges,and source node and you have to print the shortest distance to every node
+
+int main(){
+
+
+
 
     // int v,e;
     // cin>>v>>e;
