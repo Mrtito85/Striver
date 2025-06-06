@@ -4,6 +4,7 @@
 #include <vector>
 #include <queue>
 #include <stack>
+#include<climits>
 using namespace std;
 template <typename T>
 //graph has Nodes 
@@ -392,22 +393,118 @@ vector<int>  kahnAlgorithm(int v,int e,vector<vector<int>> &edges){
     }
     return ans;
 }
+
+
+//shortest path  direected Acyclic   weighted Graph
+//use topological sort
+//now we also have weights we consider them while making adjacency list
+//new adj list unordered_map<int,list<pair<int,int>> > adj;
+//6 vertix  
+ //9 edges
+ //0-> [1,5][2,3]
+ //1->[2,2],[3,6]
+ //2->[3,7],[4,4],[5,2]
+ //3->[4,-1]
+ //4->[5,-2]
+//5->
+
+class Graph{
+    public:
+    unordered_map<int,vector<pair<int,int>>> adj;
+
+    void addEdge(int u,int v,int weight){
+        pair<int,int> p=make_pair(v,weight);
+        adj[u].push_back(p);
+    }
+
+    void printAdj(){
+        for(auto i: adj){
+            cout<<i.first<<"-> ";
+            for(auto j:i.second){
+                cout<<"("<<j.first<<","<<j.second<<"), ";
+            }
+            cout<<endl;
+        }
+    }
+    void dfs(unordered_map<int,bool> &visited,stack<int> &s,int node){
+        visited[node]=true;
+        for(auto i:adj[node]){
+            if(!visited[i.first]){
+                dfs(visited,s,i.first);
+            }
+        }
+        s.push(node);
+    }
+    void getShortestPath(int src,vector<int> &distance,stack<int> &s){
+        distance[src]=0;
+        while(!s.empty()){
+            int top=s.top();
+            s.pop();
+
+            if(distance[top]!=INT_MAX){
+                for(auto i:adj[top]){
+                    if(distance[top]+i.second <distance[i.first]){
+                        distance[i.first]= distance[top]+ i.second;
+                    }
+                }
+            }
+        }
+    }
+};
 int main(){
 
 
-    int v,e;
-    cin>>v>>e;
-    vector<vector<int>> edges(e,vector<int>(2));
-    cout << "Enter edges (u v):\n";
-    for (int i = 0; i <e; i++) {
-        cin>>edges[i][0]>>edges[i][1];
-    }
+    Graph g;
+    g.addEdge(0,1,5);
+    g.addEdge(0,2,3);
+    g.addEdge(1,2,2);
+    g.addEdge(1,3,6);
+    g.addEdge(2,3,7);
+    g.addEdge(2,4,4);
+    g.addEdge(2,5,2);
+    g.addEdge(3,4,-1);
+    g.addEdge(4,5,-2);
+    g.printAdj();
 
-    vector<int> ans=kahnAlgorithm(v,e,edges);
-    for(auto i:ans){
+    //topological sort
+    //make a visited array , stack for topological sort and adj list is present in graph
+    unordered_map<int,bool> visited;
+    stack<int> s;
+    //traverse all the disconnected components
+    int n=6;
+    for(int i=0;i<n;i++){
+        if(!visited[i]){
+            g.dfs(visited,s,i);
+        }
+    }
+    
+    //now prove the source node for distance array 
+    int src=1;
+    //now make the distance array and mark it INT_MAX
+    vector<int> distance(n);
+    for(int i=0;i<n;i++){
+        distance[i]=INT_MAX;
+    }
+    //mark the src node ditance to zero
+    g.getShortestPath(src,distance,s);
+    for(auto i:distance){
         cout<<i<<" ";
     }
-    cout<<endl;
+//2147483647 0 2 6 5 3 answer is correct
+
+    // int v,e;
+    // cin>>v>>e;
+    // vector<vector<int>> edges(e,vector<int>(2));
+    // cout << "Enter edges (u v):\n";
+    // for (int i = 0; i <e; i++) {
+    //     cin>>edges[i][0]>>edges[i][1];
+    // }
+
+    // vector<int> ans=kahnAlgorithm(v,e,edges);
+    // for(auto i:ans){
+    //     cout<<i<<" ";
+    // }
+    // cout<<endl;
 
 
     return 0;
