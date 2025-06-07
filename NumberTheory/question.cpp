@@ -15,6 +15,9 @@ using namespace std;
 //1<<2= 100
 //1<<3 =1000 binary
 
+/*
+instead of divide and Multiply use >> and << operator which is more faster than divide and multiply operator
+*/
 void binary(int n){
     for(int i=10;i>=0;i--){
         cout<<((n>>i) & 1);
