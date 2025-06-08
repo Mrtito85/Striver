@@ -300,6 +300,61 @@ int LCA_BST_Iterative(node* &root,int p,int q){
 }
 }
 
+/*
+Two Sum in BST
+Input: Root,Target  
+Approach 1
+pick each node and subtract with the target and now traverse in the BST to find the remainingTarget
+remaining=target-node->data
+search the remaining in the bst for each node
+pick 1 node -> n-1 comparsion
+pick 2 node -> n-2 comparsion
+pick 3 node -> n-3 comparsion
+and so on
+
+Approach 2 : BigO(N)
+BST property is inorder is sorted
+*/
+bool search(node* root,int val,int skip){
+    if(root==NULL)return false;
+    if(root->data != skip && root->data==val){
+        return true;
+    }
+    if(val>root->data){
+        return search(root->right,val,skip);
+    }else{
+        return search (root->left,val,skip);
+    }
+}
+bool solve(node* &root,node* curr,int target){
+    if(curr==NULL)return false;
+    int remaining=target-curr->data;
+    if(search(root,remaining,curr->data)){
+        return true;
+    }
+    return solve(root,curr->left,target) || solve(root,root->right,target);
+}
+bool twoSum(node* &root,int target){
+    return solve(root,root,target);
+}
+/*
+Appraoch 2
+*/
+bool twoSumOpptimal(vector<int> &ans,int target){
+   //find the inorder vector arrays
+    int i=0;
+    int j=ans.size()-1;
+    while(i<j){
+        int sum=ans[i]+ans[j];
+        if(sum==target)return true;
+        if(sum>target){
+            j--;
+        }else{
+            i++;
+        }
+    }
+    return false;
+}
 
 int main(){
     node* root=NULL;
