@@ -137,6 +137,170 @@ bool isValid(node* &root,int min,int max){
         return false;
     }
 }
+
+/*
+find the Kth-Smallest elment in BST
+approach 1
+what if a get a inordered because it's sorted and the we traverse the array and find the kth index element 
+apporach 2
+while travering the inorder maintain a count =0 and increment while increment the root node and when the count==k return root->__inner_data_entrypoint
+and when root==NULL then return -1
+*/
+
+int kthSmallest(int k,vector<int> &ans){
+    //they have given us a index
+    if(k>0 && k<ans.size()){
+        return ans[k-1];
+    }
+    return -1;
+}
+
+int inorder(node* &root,int &count,int k){
+    if(root==NULL){
+        return -1;
+    }
+   int left= inorder(root->left,count,k);
+   if(left!=-1)return left;
+   count++;
+   if(count==k){
+    return root->data;
+   }
+   return inorder(root->right,count,k);
+
+
+    
+    
+}
+
+/*
+find the Kth Largest Element what if i told you it's similar to to kth smallest let i know the 
+largest element for the right is n-i+1  ==>  n-kth+1  ---> this  now i can find kth largest using a kth smallest code
+
+*/
+int kthLargest(int k,vector<int> &ans){
+    //they have given us a index
+    int n=ans.size();
+    if(k>0 && k<ans.size()){
+        return ans[n-k+1];
+    }
+    return -1;
+}
+/*
+Find the Predecessor and successor inorder in BST
+inorder predecessor -> the element who is come before the target value
+inorder successor   -> the element who is come after the target value
+
+Appraoch 1
+take  an answer array  and the element [target-1]  && [target+1]
+
+
+Approach 2
+
+predecessor --> the element the left subtree which has a maximum = findMax
+successor   --> the element which is minimum in the right subtree = findMin
+*/
+
+node* findMin(node* &root){
+    node* temp=root;
+    while(temp->left != NULL){
+        temp=temp->left;
+    }
+    return temp;
+}  
+node* findMax(node* &root){
+    node* temp=root;
+    while(temp->right !=NULL){
+        temp=temp->right;
+    }
+    return temp;
+} 
+/*
+Input ->key , root 
+*/
+pair<int,int> predecessorAndSuccessor(node* &root,int key){
+    //first we have to find the key
+    node* temp=root;
+    int predecessor=-1;
+    int successor=-1;
+    while(temp->data!=key){
+        if(temp->data > key){
+            //it's mean we have greater root the key is in the left half
+            //the root has greater value it is possible it might be our successor
+            successor=root->data;
+            temp=temp->left;
+        }
+        else{
+            predecessor=root->data;
+            temp=temp->right;
+        }
+    }
+
+    //now find the max element is the left which is our successor
+    node* templeft=temp->left;
+    while(templeft != NULL){
+        predecessor=templeft->data;
+        templeft=templeft->right;
+    }
+    //find minimum at the right which is our successor
+    node* tempright=temp->right;
+    while(tempright!=NULL){
+        successor=tempright->data;
+        tempright=tempright->left;
+    }
+    return {predecessor,successor};
+
+
+}
+
+
+/*
+Find LCA in BST
+Input: root  , int p , int q   or may give p->data or q->data
+Appoach 1 
+we have 4 conditions 
+1: root->data > q->data  && root->data > p->data its mean both p and q lies in left part
+2: root->data <q->data && root->data < p->data  it's mean both p and q lies right part because data is greater than the root
+3: root->data < q->data  q in the right part and root->data > p->data it's mean it's lies in left part 
+4 : vice versa for 4th conditon similar to 3
+
+
+*/
+
+int LCA_BST(node* &root,int p,int q){
+    if(root==NULL)return -1;
+
+    if(root->data>p && root->data > q){
+        //go to left half
+        return LCA_BST(root->left,p,q);
+    }
+    else if(root->data<p && root->data <q){
+        return LCA_BST(root->right,p,q);
+    }
+    else{
+        return root->data;
+    }
+}
+int LCA_BST_Iterative(node* &root,int p,int q){
+    node* temp=root;
+    while(temp!=NULL){
+
+    
+
+            if(temp->data>p && temp->data > q){
+                //go to left half
+                temp=temp->left;
+            }
+            else if(temp->data<p && temp->data <q){
+                temp=temp->right;
+            }
+            else{
+                return temp->data;
+            }
+
+}
+}
+
+
 int main(){
     node* root=NULL;
     root=buildBST(root);
@@ -166,6 +330,14 @@ int main(){
         cout<<"Not valid"<<endl;
     }
     cout<<"Isvalid Function using Min max "<<isValid(root,INT_MIN,INT_MAX);
-
+    cout<<endl;
+    int count=0;
+    cout<<inorder(root,count,2)<<endl;
+    cout<<findMax(root)->data<<endl;
+    cout<<findMin(root)->data<<endl;
+    cout<<"Printing predecessor and Successor "<<endl;
+    cout<<predecessorAndSuccessor(root,8).first<<" "<<predecessorAndSuccessor(root,8).second; 
+    cout<<endl;
+    cout<<LCA_BST(root,8,21);  //answer is 5
     return 0;
 }
