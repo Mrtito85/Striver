@@ -356,6 +356,35 @@ bool twoSumOpptimal(vector<int> &ans,int target){
     return false;
 }
 
+/*
+Input: Root
+make an inorder 
+Flatten a BST into linked list where the left pointer is point to NULL 
+and right pointer is point toward the null node
+and the base case is the last Node left and right is point toward NULL
+
+*/
+
+node* BST_Flatten(node* &root){
+    //inorder
+    vector<int> ans;
+    inordered_BST(root,ans);
+    
+    //create a node newRoot to return
+    node* newRoot=new node(ans[0]);
+    node* curr=newRoot;
+    for(int i=1;i<ans.size();i++){
+        node* temp=new node(ans[i]);
+        curr->left=NULL;
+        curr->right=temp;
+        curr=temp;
+    }
+    curr->left=NULL;
+    curr->right=NULL;
+    return newRoot;
+}
+
+
 int main(){
     node* root=NULL;
     root=buildBST(root);
@@ -394,5 +423,8 @@ int main(){
     cout<<predecessorAndSuccessor(root,8).first<<" "<<predecessorAndSuccessor(root,8).second; 
     cout<<endl;
     cout<<LCA_BST(root,8,21);  //answer is 5
+    cout<<"linked list from bst "<<endl;
+    cout<<BST_Flatten(root)->right->data;
+
     return 0;
 }

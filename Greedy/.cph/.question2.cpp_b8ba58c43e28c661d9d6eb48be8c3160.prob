@@ -1,0 +1,1 @@
+{"name":"Local: question2","url":"c:\\Users\\wwwza\\Desktop\\Striver\\Greedy\\question2.cpp","tests":[{"id":1749436183318,"input":"5\n4 3 7 1 2","output":"Minimum time to process all the  job 4"}],"interactive":false,"memoryLimit":1024,"timeLimit":3000,"srcPath":"c:\\Users\\wwwza\\Desktop\\Striver\\Greedy\\question2.cpp","group":"local","local":true}
