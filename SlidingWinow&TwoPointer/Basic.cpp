@@ -389,6 +389,30 @@ void countNofSubStringwithKChar(string v,int n,int k){
     cout<<count<<endl;
 }
 
+
+void longestRepeatingCharacterReplacement(string s,int n,int k){
+
+    //the given a upper case alphabets strings i have allowed to replace k aphabets to make a longest substring
+    //first to calcute the maxfrequence  then len - maxFrequency is possible changes i require to make a longest strings
+
+    int maxLength=INT_MIN;
+    for(int i=0;i<n;i++){
+        vector<int> freq(26,0);
+        int frequency=0;
+        for(int j=i;j<n;j++){
+            freq[s[j]-'A']++;
+            frequency=max(frequency,freq[s[j]-'A']);
+            int changes=(j-i+1)- frequency;
+            if(changes<=k){
+                maxLength=max(maxLength,j-i+1);
+            } 
+            else{
+                break;
+            }
+        }
+    }
+    cout<<maxLength<<endl;
+}
 /*
     Pattern 3:
     Count Number of Subarray where  <Condition>
@@ -417,7 +441,7 @@ int main(){
     //     cin>>v[i];
     // }
 
-    countNofSubStringwithKChar(v,n,k);
+    longestRepeatingCharacterReplacement(v,n,k);
 //constantSizeWindow(v,n,k);
     return 0;
 }
