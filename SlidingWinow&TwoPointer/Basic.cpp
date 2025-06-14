@@ -1,5 +1,6 @@
 #include <iostream>
 #include <vector>
+#include <unordered_map>
 #include <climits>
 using namespace std;
 
@@ -146,6 +147,8 @@ void maxPointsObtainFromCard(vector<int> v,int n,int k){
     //we have to find the maximum points obtain from the cards from left or right k size window
     //initially leftSum=0,rightSum=0  calcuate leftSum from 0 to k-1
     //now start removing 1 element form left and adding from right and track the maxSum
+    // 7 4
+    // 0 2 3 3 4 5 5
 
     if(k>n){
         cout<<"Not possible"<<endl;
@@ -163,7 +166,7 @@ void maxPointsObtainFromCard(vector<int> v,int n,int k){
     //calculte the right sum and start removing from left
     int  rightIndex=n-1;
     for(int i=k-1;i>=0;i--){
-        cout<<i<<endl;
+        //cout<<i<<endl;
         leftSum-=v[i];
         rightSum+=v[rightIndex];
         rightIndex--;
@@ -171,6 +174,100 @@ void maxPointsObtainFromCard(vector<int> v,int n,int k){
     }
     cout<<maxSum<<endl;
 
+}
+
+void longestSubstringWithoutRepeatingCharacter(string v,int n){
+    //we have to find the longest substring without repeating character
+    //we will traverse through the every substring
+    //and if it's visited than we break the loop otherwise we will update the maxLength
+    int maxLength=INT_MIN;
+    for(int i=0;i<n;i++){
+        unordered_map<char,bool> visited;
+        for(int j=i;j<n;j++){
+            if(visited[v[j]]==1)break;
+            maxLength=max(maxLength,j-i+1);
+            visited[v[j]]=1;
+        }
+
+    }
+    cout<<maxLength<<endl;
+}
+
+void longestSubstringWithoutRepeatingCharacter1(string s,int n){
+    //better
+    //use unordered map to track visited and their index in which they are present
+    //if visited than and visited[curr]>=l  than update l =visited[curr]+1;
+    //calculate the length length=r-l+1
+
+    int l=0;
+    int r=0;
+    int maxLength=0;
+    unordered_map<char,int> lastSeen;
+    while(r<n){
+        int curr=s[r];
+        if(lastSeen.find(curr)!=lastSeen.end()){
+            //we found the element now check if the index 
+            if(lastSeen[curr]>=l){
+                l=lastSeen[curr]+1;
+            }
+        }
+        int len=r-l+1;
+        maxLength=max(maxLength,len);
+        //mark the visited
+        lastSeen[curr]=r;
+        r++;
+    }
+    cout<<"Hash "<<maxLength<<endl;
+}
+
+void maxConsecutiveOnes(vector<int> v,int n , int k){
+    //can i map this problem with this-> longest subarray with at most k zero's
+    //brute force 
+    //Approach 1
+    //generate all the subarrays  k=2
+    //if zero count is less than equal to k calculte the max length else break from the loop
+    int maxLength=INT_MIN;
+    for(int i=0;i<n;i++){
+        int zeroCount=0;
+        for(int j=i;j<n;j++){
+            if(v[j]==0)zeroCount++;
+            if(zeroCount<=k){
+                maxLength=max(maxLength,j-i+1);
+                //cout<<zeroCount<<" "<<j-i+1<<endl;
+            }else{
+                break;
+            }
+        }
+    }
+    cout<<maxLength<<endl;
+}
+void maxConsecutiveOnes1(vector<int> v,int n,int k){
+    //better solutuion
+    //using two pointer's left and right
+    //initially left and right both points to zero
+    //check if v[r]==0 zeroCount++ if the zeroCount > k than move the left pointer forward until zeroCount came under k
+    //and if the zeroCount is less or equal to k than update the maximum length and move the r pointer by 1 always
+
+    int left=0;
+    int right=0;
+    int maxLength=INT_MIN;
+    int zeroCount=0;
+    while(right<n){
+        if(v[right]==0)zeroCount++;
+        while(zeroCount>k){
+            if(v[left]==0)zeroCount--;
+
+            left++;
+        }
+        if(zeroCount<=k){
+            //update the maximum length
+            int len=right-left+1;
+            maxLength=max(maxLength,len);
+        }
+
+        right++;
+    }
+    cout<<maxLength<<endl;
 }
 /*
     Pattern 3:
@@ -180,6 +277,8 @@ void maxPointsObtainFromCard(vector<int> v,int n,int k){
     than find number of subarray where sum <=(k-1)
     than subtrack both the answer is sum<=k  -  sum<=(k-1) 
 */
+
+
 
 /*
     Pattern 4
@@ -191,12 +290,12 @@ int main(){
 
     int n,k;
     cin>>n>>k;
-
     vector<int> v(n);
     for(int i=0;i<n;i++){
         cin>>v[i];
     }
-    maxPointsObtainFromCard(v,n,k);
+
+    maxConsecutiveOnes1(v,n,k);
 //constantSizeWindow(v,n,k);
     return 0;
 }
