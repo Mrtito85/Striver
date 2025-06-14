@@ -2,6 +2,7 @@
 #include <vector>
 #include <unordered_map>
 #include <climits>
+#include <set>
 using namespace std;
 
 /*
@@ -269,6 +270,125 @@ void maxConsecutiveOnes1(vector<int> v,int n,int k){
     }
     cout<<maxLength<<endl;
 }
+
+void maxConsecutiveOnes2(vector<int> v,int n,int k){
+    //optimal solutuion
+    //using two pointer's left and right
+    //initially left and right both points to zero
+    //check if v[r]==0 zeroCount++ if the zeroCount > k than move the left pointer forward until zeroCount came under k
+    //and if the zeroCount is less or equal to k than update the maximum length and move the r pointer by 1 always
+
+    int left=0;
+    int right=0;
+    int maxLength=INT_MIN;
+    int zeroCount=0;
+    while(right<n){
+        if(v[right]==0)zeroCount++;
+        //no need of while loop here because we need a max length and it's only update the maxlenth when it's maximum and zero is under condition k
+
+        if(zeroCount>k){
+            if(v[left]==0)zeroCount--;
+
+            left++;
+        }
+        if(zeroCount<=k){
+            //update the maximum length
+            int len=right-left+1;
+            maxLength=max(maxLength,len);
+        }
+
+        right++;
+    }
+    cout<<maxLength<<endl;
+}
+
+
+void fruitsIntoKBaskets(vector<int> v,int n,int k){
+    //Brute force
+    //generate all the subarrays 
+    //we have to fill the k baskets with fruit's each basit has only 1 fruit and we have to take the maximum fruit
+    //find the maximum length of subarray in which we have k fruit's but that are maximum
+    //use the set data structure to store the distinct fruit's "Set has property of store only unique"
+    // 7 2
+    // 2 1 5 2 5 2 4
+
+    int maxLength=INT_MIN;
+    for(int i=0;i<n;i++){
+        set<int> st;
+        for(int j=i;j<n;j++){
+            st.insert(v[j]);
+            if(st.size()<=k){
+                maxLength=max(maxLength,j-i+1);
+            }
+            else{
+                break;
+            }
+        }
+    }
+    cout<<maxLength<<endl;
+    
+}
+
+void fruitsIntoKBaskets1(vector<int> v,int n,int k){
+    //we have given a k basit each basket consist of only 1 type of fruit we have to collect the maximum
+    //number of consecutive fruits  
+    int l=0;
+    int r=0;
+    int maxLength=INT_MIN;
+    unordered_map<int,int> mp;
+    while(r<n){
+        mp[v[r]]++;
+
+        if(mp.size()>k){
+            while(mp.size()>k){
+                mp[v[l]]--;
+                if(mp[v[l]]==0){
+                    mp.erase(v[l]);
+                }
+                l++;
+            }
+        }
+        if(mp.size()<=k){
+            maxLength=max(maxLength,r-l+1);
+        }
+        r++;
+    }
+
+    cout<<maxLength<<endl;
+}
+
+void countNumberOfSubstringContainKCharacter(string v,int n,int k){
+    //here k is 3 string has 3 character a b c
+    //generate all the subarray
+    //make a visitedd array and mark visited 1
+    int count=0;
+    for(int i =0;i<n;i++){
+        vector<int> visited(3,0);
+        for(int j=i;j<n;j++){
+            visited[v[j]-'a']=1;
+           
+            
+            if(visited[0]+ visited[1]+visited[2]==3){
+                count++;
+
+              
+            }
+        }
+    }
+    cout<<count<<endl;
+}
+void countNofSubStringwithKChar(string v,int n,int k){
+    vector<int> visited={-1,-1,-1};
+    int count=0;
+    for(int i=0;i<n;i++){
+        visited[v[i]-'a']=i;
+        if(visited[0]!= -1 && visited[1] != -1 && visited[2]!=-1){
+            count += 1+  min(visited[0],min(visited[1],visited[2]));
+        }
+    }
+    cout<<count<<endl;
+}
+
 /*
     Pattern 3:
     Count Number of Subarray where  <Condition>
@@ -290,12 +410,14 @@ int main(){
 
     int n,k;
     cin>>n>>k;
-    vector<int> v(n);
-    for(int i=0;i<n;i++){
-        cin>>v[i];
-    }
+    string v;
+    cin>>v;
+    // vector<int> v(n);
+    // for(int i=0;i<n;i++){
+    //     cin>>v[i];
+    // }
 
-    maxConsecutiveOnes1(v,n,k);
+    countNofSubStringwithKChar(v,n,k);
 //constantSizeWindow(v,n,k);
     return 0;
 }
