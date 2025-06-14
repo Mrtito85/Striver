@@ -1,0 +1,1 @@
+{"name":"Local: Basic","url":"c:\\Users\\wwwza\\Desktop\\Striver\\SlidingWinow&TwoPointer\\Basic.cpp","tests":[{"id":1749875405814,"input":"7 14\n0 2 3 3 4 5 5 ","output":"5"}],"interactive":false,"memoryLimit":1024,"timeLimit":3000,"srcPath":"c:\\Users\\wwwza\\Desktop\\Striver\\SlidingWinow&TwoPointer\\Basic.cpp","group":"local","local":true}
