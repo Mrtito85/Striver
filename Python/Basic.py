@@ -44,3 +44,64 @@
 # 2 * 10^9 / 10 ^6  = 2* 1000=2000gb data save 
 #per gb bandwight is 10 rupees   2000gb * 365 * 10rupees = 73 lakh save money
 
+# how to measure time
+#count operation to measure time
+#Abstract notion order of growth
+
+#1. Measure time
+
+#problem with this code is varies time for different machine slow machine take larger time and fast machine has less time
+import time
+
+currTime= time.time()
+
+# for i in range(1,101):
+#     print(i)
+print(currTime-time.time())
+
+def intToString(i):
+    digit="0123456789"
+    result=""
+    if i==0:
+        return "0"
+    while(i>0):
+        result=digit[i%10] + result
+        i=i//10
+    return result
+def SumPrint(n):
+    total=0
+    for i in range(1,n):
+        total+=i
+    return total
+    
+print(SumPrint(11))
+number=123
+number = intToString(number)
+print(number)
+print(type(number))
+
+A=[1,2,3,4,5]
+B=[2,3,4,5,6,6]
+
+# for i in A:
+#     for j in B:
+#         for k in range(100000):
+#             print('({},{})'.format(i,j))
+#             print(k)
+#order of growth
+# we will calculate the time complexity for big input
+# time and input methematical formula
+# we just need a type of relationship time and input 
+#order of growth is calculate using BIG Notation
+
+#import ctypes
+
+L=[]
+L.append(1)
+L.append(10)
+L.append("2")
+L.append('x')
+L.append(1.2)
+print(L)
+print(type(L))
+print(len(L))
