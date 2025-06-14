@@ -141,6 +141,37 @@ void LongetSubarrayLength2(vector<int> v,int n,int k){
 }
 
 
+void maxPointsObtainFromCard(vector<int> v,int n,int k){
+    //Input:arr, n
+    //we have to find the maximum points obtain from the cards from left or right k size window
+    //initially leftSum=0,rightSum=0  calcuate leftSum from 0 to k-1
+    //now start removing 1 element form left and adding from right and track the maxSum
+
+    if(k>n){
+        cout<<"Not possible"<<endl;
+        return ;
+    }
+
+    int leftSum=0;
+    int rightSum=0;
+    int maxSum=INT_MIN;
+    //calculate the left sum
+    for(int i=0;i<k;i++){
+        leftSum+=v[i];
+    }
+    maxSum=max(maxSum,leftSum);
+    //calculte the right sum and start removing from left
+    int  rightIndex=n-1;
+    for(int i=k-1;i>=0;i--){
+        cout<<i<<endl;
+        leftSum-=v[i];
+        rightSum+=v[rightIndex];
+        rightIndex--;
+        maxSum=max(maxSum,leftSum+rightSum);
+    }
+    cout<<maxSum<<endl;
+
+}
 /*
     Pattern 3:
     Count Number of Subarray where  <Condition>
@@ -165,7 +196,7 @@ int main(){
     for(int i=0;i<n;i++){
         cin>>v[i];
     }
-    LongetSubarrayLength1(v,n,k);
+    maxPointsObtainFromCard(v,n,k);
 //constantSizeWindow(v,n,k);
     return 0;
 }
