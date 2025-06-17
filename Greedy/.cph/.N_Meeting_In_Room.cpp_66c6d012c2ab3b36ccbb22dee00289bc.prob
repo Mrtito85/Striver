@@ -1,0 +1,1 @@
+{"name":"Local: N_Meeting_In_Room","url":"c:\\Users\\wwwza\\Desktop\\Striver\\Greedy\\N_Meeting_In_Room.cpp","tests":[{"id":1750148856195,"input":"6\n0 3 1 5 5 8\n5 4 2 9 7 9","output":""}],"interactive":false,"memoryLimit":1024,"timeLimit":3000,"srcPath":"c:\\Users\\wwwza\\Desktop\\Striver\\Greedy\\N_Meeting_In_Room.cpp","group":"local","local":true}

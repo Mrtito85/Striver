@@ -1,0 +1,1 @@
+{"name":"Local: 1031C","url":"c:\\Users\\wwwza\\Desktop\\Striver\\codeForces\\1031C.cpp","tests":[{"id":1749981481998,"input":"3\n2 3 1\n#.#\ng.g\n2 3 2\n#.#\ng.g\n3 4 2\n.gg.\ng..#\ng##.\n","output":"2\n0\n4\n"}],"interactive":false,"memoryLimit":1024,"timeLimit":3000,"srcPath":"c:\\Users\\wwwza\\Desktop\\Striver\\codeForces\\1031C.cpp","group":"local","local":true}
