@@ -339,7 +339,6 @@ void rightTraverse(node* &root,vector<int> &ans){
     //we are writig tail case becasue we want get them reverse
     ans.push_back(root->data);
 }
-
 void leafNode(node* &root,vector<int> &ans){
     if(root==NULL)return;
     //preorder
@@ -350,8 +349,6 @@ void leafNode(node* &root,vector<int> &ans){
     leafNode(root->left,ans);
     leafNode(root->right,ans);
 }
-
-
 void boundryTraversal(node* &root){
     if(root==NULL){
         return;

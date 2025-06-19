@@ -1,0 +1,86 @@
+✅ Next 30 Days CP Roadmap
+Goal: Strengthen your core in DSA + prepare for contests
+Time per day: ~11–12 hours
+Format:
+
+📘 2–3 hrs: Learn theory & implementation
+
+🔧 6–7 hrs: Solve 6–8 problems
+
+⏱ 2 hrs: Timed contests/mock or revision
+
+✍️ 1 hr: Notes + review + mistakes journal
+
+🔥 Week 1: Master Recursion + Backtracking (Days 1–7)
+Day 1: Introduction to Recursion (Fibonacci, Factorial, Power, GCD, etc.)
+
+Day 2: Print all subsequences, subset sum, combination sum
+
+Day 3: Recursion + Strings/Arrays (Palindrome Partitioning, Permutations)
+
+Day 4: N-Queens, Sudoku Solver
+
+Day 5: Maze problems, Rat in a Maze, Knight's Tour
+
+Day 6: Backtracking summary + 4 Hard problems
+
+Day 7: Contest + review + mock test
+
+🚀 Week 2: Sorting, Two Pointers, Sliding Window, Hashing (Days 8–14)
+Day 8: Selection, Bubble, Insertion, Merge Sort (code each)
+
+Day 9: Quick Sort, Count Inversions, Kth smallest
+
+Day 10: Two Pointers problems (pairs, triplets, Dutch flag)
+
+Day 11: Sliding Window (fixed and variable size)
+
+Day 12: Hash Maps/Sets: Frequency, Anagram, Longest subarray with sum X
+
+Day 13: Practice Day (10 problems on above)
+
+Day 14: Contest + Revision
+
+🌲 Week 3: Trees & Binary Trees (Days 15–21)
+Day 15: Tree Basics (inorder, preorder, postorder)
+
+Day 16: Level order, diameter, height, leaf count
+
+Day 17: Binary Tree to DLL, Lowest Common Ancestor (LCA)
+
+Day 18: Binary Search Trees (BST operations)
+
+Day 19: Validate BST, Floor/Ceil, Kth smallest in BST
+
+Day 20: Practice set (7–10 mixed problems)
+
+Day 21: Mock contest + tree revision
+
+📊 Week 4: Stack, Queue, Heap, Prefix Sum (Days 22–30)
+Day 22: Stack problems (Next greater, Valid Parenthesis, Min Stack)
+
+Day 23: Queue basics, Circular queue, Deque
+
+Day 24: Monotonic Stack/Queue problems (sliding window max)
+
+Day 25: Heaps (min/max), K closest elements, Top K frequent
+
+Day 26: Prefix Sum, Difference Array, Subarray sums
+
+Day 27: Practice set (priority queue, prefix sums)
+
+Day 28: Solve one Div 2 Codeforces Contest
+
+Day 29: Complete notes, review mistakes
+
+Day 30: Final mock + topic revision
+
+🧠 Bonus Tips:
+Keep a "Mistake Notebook" for bugs & logic errors.
+
+Start timing your problem-solving after Week 1.
+
+Solve at least 1 hard problem every 2–3 days after Week 2.
+
+Daily LeetCode/Codeforces streak 🔥 (track on sheet)
+

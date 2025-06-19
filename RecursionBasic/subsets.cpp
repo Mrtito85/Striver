@@ -18,6 +18,7 @@ void solve(vector<int> &arr,int index,vector<int> output,vector<vector<int>> &an
     output.pop_back();
 }
 
+
 int main(){
 
     int n;

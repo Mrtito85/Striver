@@ -36,7 +36,7 @@ int solve1(vector<int> v,int n){
     int r=0;
     while(r<n-1){
         int far=0;
-        for(int i=l;i<r;i++){
+        for(int i=l;i<=r;i++){
             far=max(far,v[i]+i);
         }
         l=r+1;

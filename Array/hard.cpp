@@ -649,14 +649,16 @@ void maximumProductSubarray1(vector<int> &arr,int n){
     cout<<maxProduct<<endl;
 }
 
+
+
 int main(){
-    int n1;
-    cin>>n1;
-    vector<int> arr1(n1);
-    for(int i=0;i<n1;i++){
-        cin>>arr1[i];
+    int n;
+    cin>>n;
+    vector<int> arr(n);
+    for(int i=0;i<n;i++){
+        cin>>arr[i];
     }
-    maximumProductSubarray1(arr1,n1);
+    maximumProductSubarray1(arr,n);
     
 
     return 0;

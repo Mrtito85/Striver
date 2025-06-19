@@ -40,6 +40,13 @@ int maxPathSum(node* root){
     maximum=max(maximum,root->data + leftSum+rightSum);
     return root->data + max(leftSum,rightSum);
 }
+
+bool isIdenticalTree(node* p,node* q){
+    if(p==NULL || q==NULL){
+        return p==q;
+    } 
+    return (p->data==q->data) &&(isIdenticalTree(p->left,q->left) && isIdenticalTree(p->right,q->right));
+}
 int main(){
     node* root=new node(-10);
     root->left=new node(9);
