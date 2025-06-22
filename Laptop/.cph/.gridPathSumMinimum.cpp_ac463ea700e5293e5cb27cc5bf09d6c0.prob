@@ -1,0 +1,1 @@
+{"name":"Local: gridPathSumMinimum","url":"c:\\Users\\k n\\Desktop\\github\\Striver\\Laptop\\gridPathSumMinimum.cpp","tests":[{"id":1750418281782,"input":"2 3\n5 9 62211\n1111 5 2","output":"21"}],"interactive":false,"memoryLimit":1024,"timeLimit":3000,"srcPath":"c:\\Users\\k n\\Desktop\\github\\Striver\\Laptop\\gridPathSumMinimum.cpp","group":"local","local":true}

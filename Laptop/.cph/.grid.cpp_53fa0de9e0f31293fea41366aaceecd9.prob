@@ -1,0 +1,1 @@
+{"name":"Local: grid","url":"c:\\Users\\k n\\Desktop\\github\\Striver\\Laptop\\grid.cpp","tests":[{"id":1750436083467,"input":"3 3\n1 1 100\n2 2 3\n3 10 2\n","output":"113"}],"interactive":false,"memoryLimit":1024,"timeLimit":3000,"srcPath":"c:\\Users\\k n\\Desktop\\github\\Striver\\Laptop\\grid.cpp","group":"local","local":true}

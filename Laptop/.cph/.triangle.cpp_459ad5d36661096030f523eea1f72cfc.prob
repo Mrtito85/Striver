@@ -1,0 +1,1 @@
+{"name":"Local: triangle","url":"c:\\Users\\k n\\Desktop\\github\\Striver\\Laptop\\triangle.cpp","tests":[{"id":1750424458672,"input":"4\n2\n3 4\n6 5 7\n4 1 8 3\n","output":""}],"interactive":false,"memoryLimit":1024,"timeLimit":3000,"srcPath":"c:\\Users\\k n\\Desktop\\github\\Striver\\Laptop\\triangle.cpp","group":"local","local":true}
