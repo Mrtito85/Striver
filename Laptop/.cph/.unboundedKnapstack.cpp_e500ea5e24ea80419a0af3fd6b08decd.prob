@@ -1,0 +1,1 @@
+{"name":"Local: unboundedKnapstack","url":"c:\\Users\\k n\\Desktop\\github\\Striver\\Laptop\\unboundedKnapstack.cpp","tests":[{"id":1750659353156,"input":"3 10\n5 11 13\n2 4 6","output":"27"}],"interactive":false,"memoryLimit":1024,"timeLimit":3000,"srcPath":"c:\\Users\\k n\\Desktop\\github\\Striver\\Laptop\\unboundedKnapstack.cpp","group":"local","local":true}
