@@ -26,7 +26,7 @@ void printLongestStringSubsequence(string &s1,string &s2,int n1,int n2){
     //mark all the j col to zero
     for(int j=0;j<n2;j++){
         dp[0][j]=0;
-    }
+    }   
     vector<char> ans;
     for(int i=1;i<=n1;i++){
         for(int j=1;j<=n2;j++){

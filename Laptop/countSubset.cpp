@@ -35,7 +35,18 @@ int countSubsetOfSumKMem(vector<int> &arr,int index,int sum,vector<vector<int>> 
     //cout<<take+notTake<<endl;
     return dp[index][sum] = take + notTake;
 }
+int countSubsetOfSumKTab(vector<int> &arr,int n,int sum){
+    vector<vector<int>> dp(n,vector<int>(sum+1,0));
+    for(int i=0;i<n;i++){
+        dp[i][0]=1;
+   
+    }
+    
+    if(arr[0]<=sum)dp[0][arr[0]]=1;
 
+
+        
+}
 int main(){
     int n,k;
     cin>>n>>k;
