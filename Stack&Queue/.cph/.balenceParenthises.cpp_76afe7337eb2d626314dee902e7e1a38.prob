@@ -1,0 +1,1 @@
+{"name":"Local: balenceParenthises","url":"c:\\Users\\k n\\Desktop\\github\\Striver\\Stack&Queue\\balenceParenthises.cpp","tests":[{"id":1750975867078,"input":"((){()})","output":""}],"interactive":false,"memoryLimit":1024,"timeLimit":3000,"srcPath":"c:\\Users\\k n\\Desktop\\github\\Striver\\Stack&Queue\\balenceParenthises.cpp","group":"local","local":true}
