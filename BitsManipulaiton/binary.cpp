@@ -55,15 +55,23 @@ void binaryToDecimal(int n){
     }
     cout<<ans<<endl;
 }
-void printDecimal(int n){
+void countBinary(int n){
     int ans=0;
-
+    while(n>0){
+        int digit=n&1;
+        if(digit){
+            ans++;
+        }
+        n=n>>1;
+    }
+    cout<<ans<<endl;
 }
 
 int main(){
 
     int n;
     cin>>n;
+    countBinary(n);
     printBinary(n);
     printBinaryAsDecimal(n);
     cout<<endl;
